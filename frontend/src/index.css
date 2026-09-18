@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 150 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 150 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 20% 15%;
+
+    --primary: 142 71% 45%;
+    --primary-foreground: 40 33% 97%;
+
+    --secondary: 160 84% 39%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 140 15% 93%;
+    --muted-foreground: 150 10% 45%;
+
+    --accent: 44 96% 56%;
+    --accent-foreground: 30 80% 15%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 140 15% 88%;
+    --input: 140 15% 88%;
+    --ring: 142 71% 45%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 150 15% 98%;
+    --sidebar-foreground: 150 20% 15%;
+    --sidebar-primary: 142 71% 45%;
+    --sidebar-primary-foreground: 40 33% 97%;
+    --sidebar-accent: 145 20% 92%;
+    --sidebar-accent-foreground: 150 20% 15%;
+    --sidebar-border: 140 15% 90%;
+    --sidebar-ring: 142 71% 45%;
+
+    /* Custom tokens */
+    --glass: 0 0% 100% / 0.7;
+    --glass-border: 140 15% 88% / 0.5;
+    --surface-warm: 35 60% 96%;
+    --surface-green: 145 30% 95%;
+    --risk-low: 142 71% 45%;
+    --risk-medium: 40 90% 50%;
+    --risk-high: 0 72% 51%;
+    --chat-user: 142 71% 45%;
+    --chat-bot: 140 15% 93%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    /* Prevent any element from overflowing its container horizontally */
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    /* Prevent horizontal scroll at the document level */
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  body {
+    @apply text-foreground font-body antialiased;
+    background-image: linear-gradient(140deg, #f6fff8 0%, #eef7f0 100%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-border/60 shadow-md rounded-2xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition duration-300 hover:scale-[1.02] hover:shadow-lg;
+  }
+
+  .btn-glow {
+    @apply relative overflow-hidden transition-all duration-200;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 20px hsl(152 45% 28% / 0.2);
+  }
+
+  .gradient-blob {
+    @apply absolute rounded-full blur-3xl opacity-20 pointer-events-none;
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, transparent 0%, hsl(var(--muted)) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .typing-dot {
+    @apply inline-block w-2 h-2 rounded-full bg-muted-foreground/50;
+    animation: typing 1.4s infinite ease-in-out both;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.16s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.32s; }
+
+  @keyframes typing {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  /* iOS safe-area bottom inset for bottom nav */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Hide scrollbar but keep scroll functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pulse-gentle {
+    animation: pulse-gentle 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-gentle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+}

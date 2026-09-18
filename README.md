@@ -1,4 +1,4 @@
-# Agri_Mytra
+# AgriOne AI
 
 AgriOne AI is an AI-powered agriculture assistant for farmers, with support for English,Telugu,tamil,kannada and malayalam.
 

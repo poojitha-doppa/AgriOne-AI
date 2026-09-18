@@ -1,6 +1,6 @@
 # Agri_Mytra
 
-Agri_Mytra is an AI-powered agriculture assistant for farmers, with support for English and Telugu.
+AgriOne AI is an AI-powered agriculture assistant for farmers, with support for English,Telugu,tamil,kannada and malayalam.
 
 It includes:
 - Crop analysis support
@@ -121,6 +121,9 @@ Once backend is live:
 
 - English (`en`)
 - Telugu (`te`)
+- Tamil
+- kannada
+- malayalam
 
 UI, AI assistant guidance text, and key content flows are localized.
 

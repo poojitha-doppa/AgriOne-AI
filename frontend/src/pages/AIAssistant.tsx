@@ -109,7 +109,6 @@ const normalizeMessages = (messages: unknown, greeting: string): ChatMessage[] =
 export default function AIAssistant() {
   const { t, lang } = useI18n();
   const { isLoggedIn, user, token } = useAuth();
-  const navigate = useNavigate();
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
   const [sessions, setSessions] = useState<ChatSession[]>([]);
@@ -542,23 +541,6 @@ export default function AIAssistant() {
     setTyping(false);
     inFlightRef.current = false;
   };
-
-  if (!isLoggedIn) {
-    return (
-      <div className="max-w-3xl mx-auto flex flex-col items-center justify-center h-[300px]">
-        <div className="text-center">
-          <p className="text-lg font-semibold text-foreground mb-4">{t("auth.loginRequired")}</p>
-          <p className="text-muted-foreground mb-6">{t("ai.loginPrompt")}</p>
-          <button
-            onClick={() => navigate("/login")}
-            className="px-4 py-2 rounded-full bg-primary text-primary-foreground font-medium hover:scale-105 transition"
-          >
-            {t("auth.goToLogin")}
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full max-w-6xl mx-auto h-[calc(100dvh-9.5rem)] sm:h-[calc(100dvh-10rem)] md:h-[calc(100vh-7.5rem)] flex gap-4 min-w-0">

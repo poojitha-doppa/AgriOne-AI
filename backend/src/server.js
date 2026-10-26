@@ -6,7 +6,7 @@ import connectDB, { closeDB } from './config/db.js';
 // Fail fast if required env vars are missing
 validateEnv();
 
-connectDB().then(() => {
+const startServer = () => {
   const server = app.listen(config.port, () => {
     console.log(`[Server] Running on http://localhost:${config.port} [${config.nodeEnv}]`);
     console.log(`[Server] Health: http://localhost:${config.port}/api/health`);
@@ -34,4 +34,10 @@ connectDB().then(() => {
   process.on('unhandledRejection', (reason) => {
     console.error('[Server] Unhandled rejection:', reason);
   });
-});
+};
+
+connectDB()
+  .catch(() => {
+    console.warn('[Server] Starting without a database; database-backed features are unavailable.');
+  })
+  .finally(startServer);

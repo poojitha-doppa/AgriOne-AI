@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Tags } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
-import { useNavigate } from "react-router-dom";
 
 const categories = ["news.all", "news.crops", "news.market", "news.policy", "news.technology"];
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
@@ -51,19 +50,12 @@ const getRelativeTime = (isoDate: string, t: (key: string, values?: Record<strin
 
 export default function News() {
   const { t, lang } = useI18n();
-  const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
   const [active, setActive] = useState("news.all");
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      setLoading(false);
-      return;
-    }
-
     const fetchNews = async () => {
       try {
         setLoading(true);
@@ -99,28 +91,11 @@ export default function News() {
     return () => {
       window.clearInterval(refreshHandle);
     };
-  }, [isLoggedIn, lang]);
+  }, [lang]);
 
   const filtered = useMemo(() => {
     return active === "news.all" ? articles : articles.filter((a) => a.category === active);
   }, [active, articles]);
-
-  if (!isLoggedIn) {
-    return (
-      <div className="max-w-5xl mx-auto flex flex-col items-center justify-center h-[300px]">
-        <div className="text-center">
-          <p className="text-lg font-semibold text-foreground mb-4">{t("auth.login_required")}</p>
-          <p className="text-muted-foreground mb-6">{t("news.login_prompt")}</p>
-          <button
-            onClick={() => navigate("/login")}
-            className="px-4 py-2 rounded-full bg-primary text-primary-foreground font-medium hover:scale-105 transition"
-          >
-            {t("auth.go_to_login")}
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-5 min-w-0">

@@ -32,7 +32,7 @@ const connectDB = async () => {
     mongoose.connection.on('error', (err) => console.error('[DB] Runtime error:', err.message));
   } catch (err) {
     console.error(`[DB] Connection failed — ${categorizeError(err)}`);
-    process.exit(1);
+    throw err;
   }
 };
 

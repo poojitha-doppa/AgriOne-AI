@@ -23,7 +23,7 @@ import FloatingAssistant from "@/components/FloatingAssistant";
 
 const queryClient = new QueryClient();
 
-// Renders children only after auth state is resolved; redirects unauthenticated users to /login
+// Keeps admin-only access protected while regular app areas remain browseable to guests.
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isLoggedIn, authLoading } = useAuth();
 
@@ -64,61 +64,49 @@ const App = () => (
               <Route
                 path="/dashboard"
                 element={
-                  <ProtectedRoute>
-                    <AppLayout>
-                      <Dashboard />
-                    </AppLayout>
-                  </ProtectedRoute>
+                  <AppLayout>
+                    <Dashboard />
+                  </AppLayout>
                 }
               />
               <Route
                 path="/assistant"
                 element={
-                  <ProtectedRoute>
-                    <AppLayout>
-                      <CropAssistant />
-                    </AppLayout>
-                  </ProtectedRoute>
+                  <AppLayout>
+                    <CropAssistant />
+                  </AppLayout>
                 }
               />
               <Route
                 path="/schemes"
                 element={
-                  <ProtectedRoute>
-                    <AppLayout>
-                      <SchemeFinder />
-                    </AppLayout>
-                  </ProtectedRoute>
+                  <AppLayout>
+                    <SchemeFinder />
+                  </AppLayout>
                 }
               />
               <Route
                 path="/scheme-results"
                 element={
-                  <ProtectedRoute>
-                    <AppLayout>
-                      <SchemeResults />
-                    </AppLayout>
-                  </ProtectedRoute>
+                  <AppLayout>
+                    <SchemeResults />
+                  </AppLayout>
                 }
               />
               <Route
                 path="/news"
                 element={
-                  <ProtectedRoute>
-                    <AppLayout>
-                      <News />
-                    </AppLayout>
-                  </ProtectedRoute>
+                  <AppLayout>
+                    <News />
+                  </AppLayout>
                 }
               />
               <Route
                 path="/ai-assistant"
                 element={
-                  <ProtectedRoute>
-                    <AppLayout>
-                      <AIAssistant />
-                    </AppLayout>
-                  </ProtectedRoute>
+                  <AppLayout>
+                    <AIAssistant />
+                  </AppLayout>
                 }
               />
               <Route

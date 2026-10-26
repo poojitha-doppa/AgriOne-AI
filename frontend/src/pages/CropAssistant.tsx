@@ -105,7 +105,6 @@ const mapHistoryToResult = (item: CropHistoryItem, fallbackUnknown: string): Ana
 export default function CropAssistant() {
   const { t, lang } = useI18n();
   const { isLoggedIn, token } = useAuth();
-  const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [phase, setPhase] = useState<Phase>("upload");
@@ -165,23 +164,6 @@ export default function CropAssistant() {
       active = false;
     };
   }, [isLoggedIn, token]);
-
-  if (!isLoggedIn) {
-    return (
-      <div className="max-w-2xl mx-auto flex flex-col items-center justify-center h-[200px]">
-        <div className="text-center">
-          <p className="text-lg font-semibold text-foreground mb-4">{t("assistant.login_required")}</p>
-          <p className="text-muted-foreground mb-6">{t("assistant.login_prompt")}</p>
-          <button
-            onClick={() => navigate("/login")}
-            className="px-4 py-2 rounded-full bg-primary text-primary-foreground font-medium hover:scale-105 transition"
-          >
-            {t("assistant.go_login")}
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

@@ -168,6 +168,10 @@ export function WeatherWidget() {
     }
   };
 
+  const observedAt = weather?.dt
+    ? new Date(weather.dt * 1000).toLocaleString()
+    : null;
+
   if (loading && !weather) {
     return (
       <div className="glass-card-hover p-6">
@@ -236,8 +240,10 @@ export function WeatherWidget() {
 
         {location && !manualCity && (
           <p className="text-[11px] text-muted-foreground">
-            GPS: {location.lat.toFixed(5)}, {location.lon.toFixed(5)}
-            {location.accuracy != null ? ` (${Math.round(location.accuracy)}m)` : ""}
+            {location.accuracy != null
+              ? `GPS: ${location.lat.toFixed(5)}, ${location.lon.toFixed(5)}`
+              : "Location resolved from weather API"}
+            {location.accuracy != null ? ` (accuracy ±${Math.round(location.accuracy)}m)` : ""}
           </p>
         )}
 
@@ -302,6 +308,10 @@ export function WeatherWidget() {
               </p>
             </div>
           </div>
+          <p className="text-[11px] text-muted-foreground">
+            Live OpenWeather data
+            {observedAt ? ` • observed ${observedAt}` : ""}
+          </p>
 
           {/* Weather Details Grid */}
           <div className="grid grid-cols-2 gap-3 py-2 text-sm">

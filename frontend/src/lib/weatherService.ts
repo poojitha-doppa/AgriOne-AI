@@ -6,7 +6,6 @@ import {
 } from "@/lib/weatherConfig";
 
 class WeatherService {
-  private static readonly ACCEPTABLE_ACCURACY_METERS = 1000;
   private static readonly TARGET_ACCURACY_METERS = 120;
   private static readonly LOCATION_NAME_CACHE_KEY = "agrimitra-location-name-cache";
   private static readonly LOCATION_NAME_CACHE_TTL = 24 * 60 * 60 * 1000;
@@ -69,14 +68,6 @@ class WeatherService {
           }
 
           const { latitude, longitude, accuracy } = position.coords;
-
-          // If the browser can only provide very coarse location,
-          // avoid showing potentially wrong place names.
-          if (accuracy > WeatherService.ACCEPTABLE_ACCURACY_METERS) {
-            console.warn("Geolocation accuracy too low:", accuracy);
-            resolve(null);
-            return;
-          }
 
           resolve({ lat: latitude, lon: longitude, accuracy });
         })

@@ -135,38 +135,19 @@ export default function Home() {
 
   const navItems = [
     { key: "nav.dashboard", path: "/dashboard", gated: false, icon: LayoutDashboard },
-    { key: "nav.assistant", path: "/assistant", gated: true, icon: ScanLine },
-    { key: "nav.schemes", path: "/schemes", gated: true, icon: Landmark },
-    { key: "nav.news", path: "/news", gated: true, icon: Newspaper },
-    { key: "nav.aiAssistant", path: "/ai-assistant", gated: true, icon: Bot },
+    { key: "nav.assistant", path: "/assistant", gated: false, icon: ScanLine },
+    { key: "nav.schemes", path: "/schemes", gated: false, icon: Landmark },
+    { key: "nav.news", path: "/news", gated: false, icon: Newspaper },
+    { key: "nav.aiAssistant", path: "/ai-assistant", gated: false, icon: Bot },
     ...(isAdmin ? [{ key: "nav.admin", path: "/admin", gated: true, icon: ShieldCheck }] : []),
   ];
 
   const handleNavClick = (item) => {
-    if (isLoggedIn) {
-      navigate(item.path);
-      return;
-    }
-
-    if (item.path === "/dashboard") {
-      navigate("/preview");
-      return;
-    }
-
-    if (item.gated) {
-      navigate("/signup");
-      return;
-    }
-
     navigate(item.path);
   };
 
   const handleModuleClick = (path) => {
-    if (!isLoggedIn) {
-      navigate("/signup");
-    } else {
-      navigate(path);
-    }
+    navigate(path);
   };
 
   return (
@@ -258,7 +239,7 @@ export default function Home() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
-                  onClick={() => navigate(isLoggedIn ? "/dashboard" : "/signup")}
+                  onClick={() => navigate("/dashboard")}
                   className="inline-flex items-center rounded-2xl bg-gradient-to-r from-primary to-secondary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95"
                 >
                   {homeCopy.getStarted}
@@ -270,7 +251,9 @@ export default function Home() {
                   {homeCopy.tryDemo}
                 </button>
               </div>
-              <p className="mt-3 text-sm font-medium text-muted-foreground">{homeCopy.demoHint}</p>
+              <p className="mt-3 text-sm font-medium text-muted-foreground">
+                Browse freely as a guest. Sign in only to save your work.
+              </p>
             </div>
             <div className="flex justify-center">
               <AnimatedHero />
@@ -281,7 +264,7 @@ export default function Home() {
         {/* Features Section */}
         <section className="mb-10 animate-slide-up">
           <h2 className="mb-6 font-heading text-3xl font-bold">{homeCopy.featuresTitle}</h2>
-          {!isLoggedIn && <p className="mb-4 text-sm text-muted-foreground">{homeCopy.gatedHint}</p>}
+          {!isLoggedIn && <p className="mb-4 text-sm text-muted-foreground">Explore the app freely as a guest. Sign in only when you want to save your work.</p>}
           <div className="grid gap-4 md:grid-cols-3">
             {[
               { icon: ScanLine, title: homeCopy.cropAssistant, text: homeCopy.cropText, path: "/assistant" },
